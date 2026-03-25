@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Financial Values Alignment — Lydia by Shaping Wealth</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #FAF8F5;
+  --ivory-2: #F2EFE9;
+  --ivory-3: #E8E3DB;
+  --slate: #1C2B3A;
+  --slate-2: #2E4058;
+  --slate-light: #5A7A96;
+  --gold: #C9A96E;
+  --gold-light: #E8D5B0;
+  --text: #1C2B3A;
+  --text-secondary: #5A7A96;
+  --text-tertiary: #96A8B5;
+  --border: rgba(28,43,58,0.1);
+  --border-hover: rgba(28,43,58,0.22);
+  --radius: 6px;
+  --radius-lg: 12px;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--ivory);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* Lydia wordmark */
+.lydia-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+}
+.lydia-mark .mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--slate);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lydia-mark .mark svg { width: 14px; height: 14px; }
+.lydia-mark .name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--slate);
+  letter-spacing: 0.02em;
+}
+.lydia-mark .by {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-left: 2px;
+}
+
+/* Tool header */
+.tool-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.tool-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--slate);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.tool-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Progress */
+.progress-wrap { margin: 2rem 0 2.5rem; }
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+.progress-bar { height: 1px; background: var(--ivory-3); }
+.progress-fill { height: 100%; background: var(--gold); transition: width 0.5s ease; }
+
+/* Questions */
+.q-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+}
+
+.q-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 1.5rem;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.options { display: flex; flex-direction: column; gap: 8px; }
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: white;
+  user-select: none;
+}
+.opt:hover { border-color: var(--gold-light); background: var(--ivory); }
+.opt.selected { border-color: var(--gold); background: var(--ivory); }
+.opt.selected .dot { background: var(--gold); border-color: var(--gold); }
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-hover);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s;
+}
+.opt-text { font-size: 14px; color: var(--text); line-height: 1.5; font-weight: 300; }
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.btn-ghost {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 10px 0;
+  transition: color 0.2s;
+  font-weight: 300;
+}
+.btn-ghost:hover { color: var(--text); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn:hover { border-color: var(--slate); background: var(--ivory-2); }
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: var(--slate); color: white; border-color: var(--slate); }
+.btn.primary:hover { background: var(--slate-2); }
+.btn.primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn.gold { background: var(--gold); color: white; border-color: var(--gold); }
+.btn.gold:hover { opacity: 0.9; }
+.btn.full { width: 100%; justify-content: center; }
+
+.divider {
+  height: 1px;
+  background: var(--ivory-3);
+  margin: 2rem 0;
+}
+
+/* Result hero */
+.result-hero { text-align: center; padding: 2.5rem 0 2rem; }
+
+.result-number {
+  font-family: var(--font-display);
+  font-size: 96px;
+  font-weight: 400;
+  color: var(--slate);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.result-of {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-top: 0.4rem;
+  font-weight: 300;
+}
+
+.result-tier {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+}
+
+/* Archetype result */
+.archetype-hero { text-align: center; padding: 2rem 0; }
+.archetype-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--ivory-2);
+  border: 1px solid var(--ivory-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-size: 28px;
+}
+.archetype-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.archetype-tagline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Pillar grid */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+.pillar-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.pillar-name {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.5rem;
+}
+.pillar-score {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--slate);
+}
+.pillar-bar { height: 2px; background: var(--ivory-3); border-radius: 2px; margin-top: 0.75rem; }
+.pillar-fill { height: 100%; border-radius: 2px; background: var(--gold); transition: width 0.8s ease; }
+
+/* Trait cards */
+.traits { display: flex; flex-direction: column; gap: 10px; margin: 1.5rem 0; }
+.trait-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.trait-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.trait-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+.trait-text strong { color: var(--text); font-weight: 500; }
+
+/* Section label */
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+}
+
+/* Gate block */
+.gate-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  background: white;
+}
+.gate-block h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.gate-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.gate-list {
+  background: var(--ivory);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gate-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 300;
+}
+.gate-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.field-row input {
+  height: 42px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  font-weight: 300;
+}
+.field-row input:focus { border-color: var(--gold); }
+.field-row input.error { border-color: #c0392b; }
+.field-note { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; font-weight: 300; }
+
+/* Success */
+.success-inner { text-align: center; padding: 1.5rem 0.5rem; }
+.check-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--gold);
+  font-size: 20px;
+}
+.success-inner h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.success-inner p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+/* Story / open result */
+.story-block {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 1.5rem 0;
+}
+.story-block p {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--slate);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* CTA block */
+.cta-block {
+  background: var(--slate);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+.cta-block p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.cta-block .cta-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 480px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .tool-title { font-size: 28px; }
+  .result-number { font-size: 72px; }
+  .archetype-name { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+<div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+<div class="page" id="setup-section">
+  <div class="tool-tag">For Couples and Households</div>
+  <h1 class="tool-title">Are you and your partner financially aligned?</h1>
+  <p class="tool-sub" style="margin-bottom:2rem">Each partner answers independently. Then you will see where your values align — and where they diverge. Takes 5 minutes each.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem">
+    <div style="background:white;border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">Partner 1</div>
+      <input type="text" id="p1-name" placeholder="First name" style="width:100%;height:40px;padding:0 12px;font-size:14px;font-family:var(--font-body);border:1px solid var(--border-hover);border-radius:var(--radius);background:var(--ivory);color:var(--text);outline:none;font-weight:300"/>
+    </div>
+    <div style="background:white;border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">Partner 2</div>
+      <input type="text" id="p2-name" placeholder="First name" style="width:100%;height:40px;padding:0 12px;font-size:14px;font-family:var(--font-body);border:1px solid var(--border-hover);border-radius:var(--radius);background:var(--ivory);color:var(--text);outline:none;font-weight:300"/>
+    </div>
+  </div>
+  <button class="btn primary full" onclick="startQuiz(1)">Start with Partner 1 →</button>
+</div>
+<div class="page hidden" id="quiz-section">
+  <div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+  <div class="tool-tag" id="quiz-tag">Partner 1</div>
+  <h1 class="tool-title" id="quiz-title"></h1>
+  <p class="tool-sub">Answer honestly — no right or wrong answers.</p>
+  <div class="progress-wrap">
+    <div class="progress-meta"><span>Financial values</span><span id="progress-counter">1 of 8</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="q-text" id="question-text"></div>
+  <div class="options" id="options-container"></div>
+  <div class="nav">
+    <button class="btn-ghost" id="btn-back" onclick="goBack()">← Back</button>
+    <button class="btn primary" id="btn-next" onclick="goNext()">Next →</button>
+  </div>
+</div>
+<div class="page hidden" id="p2-bridge">
+  <div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+  <div class="tool-tag">Halfway there</div>
+  <h1 class="tool-title" id="bridge-title"></h1>
+  <p class="tool-sub" id="bridge-sub" style="margin-bottom:2rem"></p>
+  <button class="btn primary full" onclick="startQuiz(2)">Start Partner 2 →</button>
+</div>
+<div class="page hidden" id="result-section">
+  <div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+  <div class="tool-tag">Your Alignment</div>
+  <h1 class="tool-title" id="res-headline"></h1>
+  <p class="tool-sub" id="res-summary"></p>
+  <div class="result-hero">
+    <div class="result-number" id="res-score">—</div>
+    <div class="result-of">alignment score out of 100</div>
+    <div class="result-tier" id="res-tier"></div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">Where you align</div>
+  <div class="traits" id="align-container"></div>
+  <div class="divider"></div>
+  <div id="gate-form" class="gate-block">
+    <h3>Get your full report</h3>
+    <p class="gate-sub">Enter your email and we'll send you a detailed personalised breakdown.</p>
+    <ul class="gate-list" id="gate-list-items"></ul>
+    <div class="field-row">
+      <input type="text" id="inp-name" placeholder="First name" autocomplete="given-name"/>
+      <input type="email" id="inp-email" placeholder="Email address" autocomplete="email"/>
+    </div>
+    <button class="btn primary full" id="btn-submit" onclick="submitLead()">Send me the report →</button>
+    <p class="field-note">No spam. One email with your report.</p>
+  </div>
+  <div id="gate-success" class="gate-block hidden">
+    <div class="success-inner">
+      <div class="check-ring">✓</div>
+      <h3>On its way</h3>
+      <p id="success-msg">Your report is being prepared and will arrive shortly from hello@shapingwealth.com.</p>
+      <a href="https://shapingwealth.com" class="btn">Learn about Lydia →</a>
+    </div>
+  </div>
+</div>
+<script>
+const questions = [
+  {key:'priority',text:"Your most important financial priority right now is:",options:[
+    {text:"Building security and emergency reserves",value:"security"},{text:"Paying off debt as fast as possible",value:"debt"},
+    {text:"Investing for long-term growth",value:"invest"},{text:"Saving for a specific goal",value:"goal"},
+    {text:"Enjoying life now — we only get one",value:"now"}]},
+  {key:'risk',text:"Your comfort level with financial risk is:",options:[
+    {text:"Very low — I prioritise safety",value:"low"},{text:"Low — I prefer caution",value:"lowmed"},
+    {text:"Moderate — balanced approach",value:"med"},{text:"High — growth is worth the risk",value:"high"},
+    {text:"Very high — I am comfortable with volatility",value:"veryhigh"}]},
+  {key:'spending',text:"When it comes to everyday spending, you tend to:",options:[
+    {text:"Track everything carefully",value:"track"},{text:"Have a general sense but not detailed tracking",value:"general"},
+    {text:"Spend freely and figure it out at month end",value:"free"},{text:"Avoid thinking about it",value:"avoid"},
+    {text:"It depends on how I am feeling",value:"variable"}]},
+  {key:'lifestyle',text:"Your ideal financial lifestyle looks like:",options:[
+    {text:"Financially modest — simple, low stress",value:"modest"},{text:"Comfortable — enough for needs and some wants",value:"comfortable"},
+    {text:"Generous — able to give and experience life fully",value:"generous"},{text:"Wealthy — building significant assets",value:"wealthy"},
+    {text:"Free — money never being a limiting factor",value:"free"}]},
+  {key:'family',text:"When it comes to financial decisions about family:",options:[
+    {text:"Family needs come first, always",value:"family_first"},{text:"Balance between family and personal goals",value:"balance"},
+    {text:"Our financial security enables us to support family better",value:"security_first"},{text:"We do not have children or dependants",value:"na"},
+    {text:"I am not sure how to weigh this",value:"unsure"}]},
+  {key:'retirement',text:"Your approach to retirement planning is:",options:[
+    {text:"Actively contributing and planning",value:"active"},{text:"Contributing but not deeply engaged",value:"passive"},
+    {text:"I know I should do more",value:"should"},{text:"I will figure it out later",value:"later"},
+    {text:"I do not plan to stop working",value:"no_retire"}]},
+  {key:'giving',text:"Financial generosity — giving to causes, family, or community — is:",options:[
+    {text:"A core value — I give regularly and intentionally",value:"core"},{text:"Important when I can afford it",value:"conditional"},
+    {text:"Something I would like to do more of",value:"aspirational"},{text:"Not a financial priority for me right now",value:"not_priority"},
+    {text:"Something we disagree about as a household",value:"disagree"}]},
+  {key:'decisions',text:"How do you prefer to make major financial decisions as a couple?",options:[
+    {text:"Together — every decision is joint",value:"joint"},{text:"Mostly together with one person leading",value:"mostly_joint"},
+    {text:"We divide responsibilities and trust each other",value:"divide"},{text:"Independently — we keep finances mostly separate",value:"separate"},
+    {text:"We do not have a clear system yet",value:"unclear"}]}
+];
+var names = {p1:'Partner 1', p2:'Partner 2'};
+var currentPartner = 1, current = 0;
+var allAnswers = {p1: new Array(questions.length).fill(null), p2: new Array(questions.length).fill(null)};
+var scoreData = {};
+function startQuiz(p) {
+  currentPartner = p; current = 0;
+  var n = p===1 ? (document.getElementById('p1-name').value.trim()||'Partner 1') : (document.getElementById('p2-name').value.trim()||'Partner 2');
+  names['p'+p] = n;
+  document.getElementById('quiz-tag').textContent = n + " questions";
+  document.getElementById('quiz-title').textContent = 'How do you think about money, ' + n + '?';
+  document.getElementById('setup-section').classList.add('hidden');
+  document.getElementById('p2-bridge').classList.add('hidden');
+  document.getElementById('quiz-section').classList.remove('hidden');
+  render();
+}
+function render() {
+  var answers = allAnswers['p'+currentPartner];
+  document.getElementById('question-text').textContent = (current+1) + '. ' + questions[current].text;
+  document.getElementById('progress-counter').textContent = (current+1) + ' of ' + questions.length;
+  document.getElementById('progress-fill').style.width = Math.round((current/questions.length)*100) + '%';
+  document.getElementById('btn-back').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current===questions.length-1 ? (currentPartner===1 ? 'Next partner →' : 'See our alignment →') : 'Next →';
+  document.getElementById('options-container').innerHTML = questions[current].options.map(function(o,i) {
+    return '<div class="opt' + (answers[current]===i?' selected':'') + '" onclick="selectAnswer('+i+')"><div class="dot"></div><div class="opt-text">' + o.text + '</div></div>';
+  }).join('');
+}
+function selectAnswer(i) { allAnswers['p'+currentPartner][current]=i; render(); }
+function goBack() { if(current>0) { current--; render(); } }
+function goNext() {
+  var answers = allAnswers['p'+currentPartner];
+  if(answers[current]===null) return;
+  if(current===questions.length-1) {
+    if(currentPartner===1) {
+      document.getElementById('quiz-section').classList.add('hidden');
+      document.getElementById('bridge-title').textContent = names.p1 + ' answers saved.';
+      document.getElementById('bridge-sub').textContent = 'Now hand the device to ' + names.p2 + ' to answer the same questions independently.';
+      document.getElementById('p2-bridge').classList.remove('hidden');
+    } else { buildResults(); }
+    return;
+  }
+  current++; render();
+}
+function buildResults() {
+  var a1=allAnswers.p1, a2=allAnswers.p2, matches=0;
+  var alignItems=[], divergeItems=[];
+  questions.forEach(function(q,i) {
+    var v1=a1[i]!==null?q.options[a1[i]].value:null;
+    var v2=a2[i]!==null?q.options[a2[i]].value:null;
+    if(v1===v2) { matches++; alignItems.push({q:q.text,v:q.options[a1[i]].text}); }
+    else { divergeItems.push({q:q.text,v1:a1[i]!==null?q.options[a1[i]].text:'—',v2:a2[i]!==null?q.options[a2[i]].text:'—'}); }
+  });
+  var score = Math.round((matches/questions.length)*100);
+  var tier, headline, summary;
+  if(score>=75){tier='Strongly aligned';headline='You share a strong financial foundation';summary='Your values and priorities are largely in sync. Your advisor conversations can focus on strategy rather than resolving differences.';}
+  else if(score>=50){tier='Mostly aligned';headline='More in common than not — with room to talk';summary='You share core values but diverge on some priorities. Those divergences are worth naming — they tend to surface when big decisions arise.';}
+  else if(score>=25){tier='Partially aligned';headline='Important conversations to have';summary='You approach money differently in several meaningful ways. Understanding the differences is essential before making big financial decisions together.';}
+  else{tier='Significant divergence';headline='You see money quite differently';summary='Your financial values diverge considerably. This needs to be acknowledged openly, ideally with support from your advisor.';}
+  scoreData = {score:score,tier:tier,p1_name:names.p1,p2_name:names.p2,matches:matches,align_items:alignItems,diverge_items:divergeItems};
+  document.getElementById('res-headline').textContent = headline;
+  document.getElementById('res-summary').textContent = summary;
+  document.getElementById('res-score').textContent = score;
+  document.getElementById('res-tier').textContent = tier;
+  var alignHtml = alignItems.length>0 ? alignItems.map(function(a) {
+    return '<div class="trait-card"><div class="trait-dot"></div><div class="trait-text">Both aligned on: ' + a.q.replace('?','').toLowerCase() + ' — "' + a.v + '"</div></div>';
+  }).join('') : '<div class="trait-card"><div class="trait-dot"></div><div class="trait-text">No direct matches — the full breakdown will be especially useful.</div></div>';
+  document.getElementById('align-container').innerHTML = alignHtml;
+  document.getElementById('gate-list-items').innerHTML = ['Full alignment breakdown question by question','The divergences most likely to cause friction','Conversation starters for your advisor meeting','How Lydia helps couples navigate financial disagreements'].map(function(t){return '<li>'+t+'</li>';}).join('');
+  document.getElementById('quiz-section').classList.add('hidden');
+  document.getElementById('result-section').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+const WEBHOOK_URL = 'https://YOUR_N8N_WEBHOOK_URL';
+function submitLead() {
+  const nameEl = document.getElementById('inp-name');
+  const emailEl = document.getElementById('inp-email');
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  let valid = true;
+  nameEl.classList.remove('error'); emailEl.classList.remove('error');
+  if (!name) { nameEl.classList.add('error'); valid = false; }
+  if (!email || !email.includes('@') || !email.includes('.')) { emailEl.classList.add('error'); valid = false; }
+  if (!valid) return;
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  const payload = { tool: 'values-alignment', name, email, ...scoreData };
+  fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    .then(() => showSuccess(name)).catch(() => showSuccess(name));
+}
+function showSuccess(name) {
+  document.getElementById('success-msg').textContent = 'Thanks ' + name + ' — your report will arrive shortly from hello@shapingwealth.com.';
+  document.getElementById('gate-form').classList.add('hidden');
+  document.getElementById('gate-success').classList.remove('hidden');
+}
+</script>
+</body>
+</html>

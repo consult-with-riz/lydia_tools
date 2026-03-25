@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Therapist vs Planner — Lydia by Shaping Wealth</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #FAF8F5;
+  --ivory-2: #F2EFE9;
+  --ivory-3: #E8E3DB;
+  --slate: #1C2B3A;
+  --slate-2: #2E4058;
+  --slate-light: #5A7A96;
+  --gold: #C9A96E;
+  --gold-light: #E8D5B0;
+  --text: #1C2B3A;
+  --text-secondary: #5A7A96;
+  --text-tertiary: #96A8B5;
+  --border: rgba(28,43,58,0.1);
+  --border-hover: rgba(28,43,58,0.22);
+  --radius: 6px;
+  --radius-lg: 12px;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--ivory);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* Lydia wordmark */
+.lydia-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+}
+.lydia-mark .mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--slate);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lydia-mark .mark svg { width: 14px; height: 14px; }
+.lydia-mark .name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--slate);
+  letter-spacing: 0.02em;
+}
+.lydia-mark .by {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-left: 2px;
+}
+
+/* Tool header */
+.tool-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.tool-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--slate);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.tool-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Progress */
+.progress-wrap { margin: 2rem 0 2.5rem; }
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+.progress-bar { height: 1px; background: var(--ivory-3); }
+.progress-fill { height: 100%; background: var(--gold); transition: width 0.5s ease; }
+
+/* Questions */
+.q-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+}
+
+.q-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 1.5rem;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.options { display: flex; flex-direction: column; gap: 8px; }
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: white;
+  user-select: none;
+}
+.opt:hover { border-color: var(--gold-light); background: var(--ivory); }
+.opt.selected { border-color: var(--gold); background: var(--ivory); }
+.opt.selected .dot { background: var(--gold); border-color: var(--gold); }
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-hover);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s;
+}
+.opt-text { font-size: 14px; color: var(--text); line-height: 1.5; font-weight: 300; }
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.btn-ghost {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 10px 0;
+  transition: color 0.2s;
+  font-weight: 300;
+}
+.btn-ghost:hover { color: var(--text); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn:hover { border-color: var(--slate); background: var(--ivory-2); }
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: var(--slate); color: white; border-color: var(--slate); }
+.btn.primary:hover { background: var(--slate-2); }
+.btn.primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn.gold { background: var(--gold); color: white; border-color: var(--gold); }
+.btn.gold:hover { opacity: 0.9; }
+.btn.full { width: 100%; justify-content: center; }
+
+.divider {
+  height: 1px;
+  background: var(--ivory-3);
+  margin: 2rem 0;
+}
+
+/* Result hero */
+.result-hero { text-align: center; padding: 2.5rem 0 2rem; }
+
+.result-number {
+  font-family: var(--font-display);
+  font-size: 96px;
+  font-weight: 400;
+  color: var(--slate);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.result-of {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-top: 0.4rem;
+  font-weight: 300;
+}
+
+.result-tier {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+}
+
+/* Archetype result */
+.archetype-hero { text-align: center; padding: 2rem 0; }
+.archetype-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--ivory-2);
+  border: 1px solid var(--ivory-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-size: 28px;
+}
+.archetype-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.archetype-tagline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Pillar grid */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+.pillar-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.pillar-name {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.5rem;
+}
+.pillar-score {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--slate);
+}
+.pillar-bar { height: 2px; background: var(--ivory-3); border-radius: 2px; margin-top: 0.75rem; }
+.pillar-fill { height: 100%; border-radius: 2px; background: var(--gold); transition: width 0.8s ease; }
+
+/* Trait cards */
+.traits { display: flex; flex-direction: column; gap: 10px; margin: 1.5rem 0; }
+.trait-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.trait-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.trait-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+.trait-text strong { color: var(--text); font-weight: 500; }
+
+/* Section label */
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+}
+
+/* Gate block */
+.gate-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  background: white;
+}
+.gate-block h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.gate-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.gate-list {
+  background: var(--ivory);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gate-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 300;
+}
+.gate-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.field-row input {
+  height: 42px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  font-weight: 300;
+}
+.field-row input:focus { border-color: var(--gold); }
+.field-row input.error { border-color: #c0392b; }
+.field-note { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; font-weight: 300; }
+
+/* Success */
+.success-inner { text-align: center; padding: 1.5rem 0.5rem; }
+.check-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--gold);
+  font-size: 20px;
+}
+.success-inner h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.success-inner p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+/* Story / open result */
+.story-block {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 1.5rem 0;
+}
+.story-block p {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--slate);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* CTA block */
+.cta-block {
+  background: var(--slate);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+.cta-block p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.cta-block .cta-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 480px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .tool-title { font-size: 28px; }
+  .result-number { font-size: 72px; }
+  .archetype-name { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+<div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+<div class="page" id="quiz-section">
+  <div class="tool-tag">Advisor Style</div>
+  <h1 class="tool-title">Are you a financial therapist or a financial planner?</h1>
+  <p class="tool-sub">8 scenario questions to reveal your natural advising style.</p>
+  <div class="progress-wrap">
+    <div class="progress-meta"><span>Your advising style</span><span id="progress-counter">1 of 8</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="q-text" id="question-text"></div>
+  <div class="options" id="options-container"></div>
+  <div class="nav">
+    <button class="btn-ghost" id="btn-back" onclick="goBack()">← Back</button>
+    <button class="btn primary" id="btn-next" onclick="goNext()">Next →</button>
+  </div>
+</div>
+<div class="page hidden" id="result-section">
+  <div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+  <div class="tool-tag">Your Advising Style</div>
+  <div class="archetype-hero">
+    <div class="archetype-icon" id="arch-icon"></div>
+    <div class="archetype-name" id="arch-name"></div>
+    <p class="archetype-tagline" id="arch-tagline"></p>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">What this means for you</div>
+  <div class="traits" id="traits-container"></div>
+  <div class="divider"></div>
+  <div id="gate-form" class="gate-block">
+    <h3>Get your full report</h3>
+    <p class="gate-sub">Enter your email and we'll send you a detailed personalised breakdown.</p>
+    <ul class="gate-list" id="gate-list-items"></ul>
+    <div class="field-row">
+      <input type="text" id="inp-name" placeholder="First name" autocomplete="given-name"/>
+      <input type="email" id="inp-email" placeholder="Email address" autocomplete="email"/>
+    </div>
+    <button class="btn primary full" id="btn-submit" onclick="submitLead()">Send me the report →</button>
+    <p class="field-note">No spam. One email with your report.</p>
+  </div>
+  <div id="gate-success" class="gate-block hidden">
+    <div class="success-inner">
+      <div class="check-ring">✓</div>
+      <h3>On its way</h3>
+      <p id="success-msg">Your report is being prepared and will arrive shortly from hello@shapingwealth.com.</p>
+      <a href="https://shapingwealth.com" class="btn">Learn about Lydia →</a>
+    </div>
+  </div>
+</div>
+<script>
+const questions = [
+  {text:"A client arrives visibly distressed about a market drop. Your first instinct is to:",options:[
+    {text:"Acknowledge their feelings before showing any data",value:"t"},{text:"Show data but frame it warmly",value:"h"},
+    {text:"Walk them through the numbers — that calms them",value:"p"},{text:"Ask what specifically is worrying them most",value:"t"}]},
+  {text:"A couple disagrees in the room about spending. You:",options:[
+    {text:"Create space for both to be heard first",value:"t"},{text:"Gently mediate then redirect to the financial question",value:"h"},
+    {text:"Stay neutral and focus on the numbers",value:"p"},{text:"Suggest addressing the values disagreement first",value:"t"}]},
+  {text:"A client repeatedly doesn't follow through on agreed actions. You:",options:[
+    {text:"Explore what's getting in the way emotionally",value:"t"},{text:"Check in on barriers and adjust the plan together",value:"h"},
+    {text:"Simplify the steps and follow up more frequently",value:"p"},{text:"Wonder if there's a deeper fear around money",value:"t"}]},
+  {text:"When you think about your best client relationships, what stands out?",options:[
+    {text:"The depth of trust and openness",value:"t"},{text:"The results we achieved together",value:"p"},
+    {text:"How we navigated hard moments together",value:"h"},{text:"That they always felt understood",value:"t"}]},
+  {text:"A client inherits a large sum and is paralysed — can't make any decisions. You:",options:[
+    {text:"Explore the emotional weight of the inheritance first",value:"t"},{text:"Give them time and check in regularly",value:"h"},
+    {text:"Recommend a staged approach to reduce pressure",value:"p"},{text:"Ask about their relationship with the person who left it",value:"t"}]},
+  {text:"When you prepare for a client meeting, your primary focus is:",options:[
+    {text:"Where they are emotionally and what they need",value:"t"},{text:"The numbers and recommendations to present",value:"p"},
+    {text:"Both — the plan and how they'll likely receive it",value:"h"},{text:"What's changed in their life since we last spoke",value:"t"}]},
+  {text:"A client wants to make a decision you think is a mistake. You:",options:[
+    {text:"Explore what's driving it before advising against it",value:"t"},{text:"Present the risks clearly and respect their autonomy",value:"p"},
+    {text:"Share your concern but ask what makes this feel right to them",value:"h"},{text:"Wonder what fear or belief is underneath the decision",value:"t"}]},
+  {text:"What do you believe is the biggest barrier to clients achieving their financial goals?",options:[
+    {text:"Their mindset and relationship with money",value:"t"},{text:"Lack of a clear, well-structured plan",value:"p"},
+    {text:"A combination of behaviour and planning gaps",value:"h"},{text:"Fear, avoidance, and emotional patterns",value:"t"}]}
+];
+const archetypes = {
+  therapist: { icon:'🌿', name:'The Financial Therapist', tagline:'You lead with empathy. Numbers are the last thing on your mind when a client is struggling — you meet them where they are emotionally first.', traits:['You prioritise the relationship over the transaction','You naturally explore the why behind financial behaviour','Clients feel heard and safe in your presence'] },
+  hybrid: { icon:'⚖️', name:'The Balanced Practitioner', tagline:'You move fluidly between the technical and the human. You adapt your approach to the client in front of you.', traits:['You blend financial expertise with emotional attunement','You adapt your approach to each client','You recognise that the plan only works if the person does'] },
+  planner: { icon:'📐', name:'The Precision Planner', tagline:"Your strength is rigour. You deliver plans clients trust — and you're beginning to see the value in the human layer that makes those plans stick.", traits:['Your technical grounding gives clients confidence','You are structured, thorough, and dependable','The behavioural dimension is your next growth frontier'] }
+};
+let current = 0, answers = new Array(questions.length).fill(null), scoreData = {};
+function render() {
+  document.getElementById('question-text').textContent = (current+1) + '. ' + questions[current].text;
+  document.getElementById('progress-counter').textContent = (current+1) + ' of ' + questions.length;
+  document.getElementById('progress-fill').style.width = Math.round((current/questions.length)*100) + '%';
+  document.getElementById('btn-back').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current===questions.length-1 ? 'See my result →' : 'Next →';
+  document.getElementById('options-container').innerHTML = questions[current].options.map(function(o,i) {
+    return '<div class="opt' + (answers[current]===i?' selected':'') + '" onclick="selectAnswer('+i+')"><div class="dot"></div><div class="opt-text">' + o.text + '</div></div>';
+  }).join('');
+}
+function selectAnswer(i) { answers[current]=i; render(); }
+function goBack() { if(current>0) { current--; render(); } }
+function goNext() {
+  if(answers[current]===null) return;
+  if(current===questions.length-1) { buildResults(); return; }
+  current++; render();
+}
+function buildResults() {
+  var counts = {t:0,h:0,p:0};
+  answers.forEach(function(a,i) { if(a!==null) counts[questions[i].options[a].value]++; });
+  var archKey = 'hybrid';
+  if(counts.t>counts.h && counts.t>counts.p) archKey='therapist';
+  else if(counts.p>counts.h && counts.p>counts.t) archKey='planner';
+  var arch = archetypes[archKey];
+  scoreData = { archetype:archKey, archetype_name:arch.name, counts:counts, answers:answers.map(function(a,i) { return {q:questions[i].text, a:a!==null?questions[i].options[a].text:''}; }) };
+  document.getElementById('arch-icon').textContent = arch.icon;
+  document.getElementById('arch-name').textContent = arch.name;
+  document.getElementById('arch-tagline').textContent = arch.tagline;
+  document.getElementById('traits-container').innerHTML = arch.traits.map(function(t) { return '<div class="trait-card"><div class="trait-dot"></div><div class="trait-text">' + t + '</div></div>'; }).join('');
+  document.getElementById('gate-list-items').innerHTML = ['Your full style profile across all 8 scenarios','Specific coaching blind spots to watch for','How your style affects client outcomes','How Lydia Role Play training is built for your archetype'].map(function(t) { return '<li>'+t+'</li>'; }).join('');
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('quiz-section').classList.add('hidden');
+  document.getElementById('result-section').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+const WEBHOOK_URL = 'https://YOUR_N8N_WEBHOOK_URL';
+function submitLead() {
+  const nameEl = document.getElementById('inp-name');
+  const emailEl = document.getElementById('inp-email');
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  let valid = true;
+  nameEl.classList.remove('error'); emailEl.classList.remove('error');
+  if (!name) { nameEl.classList.add('error'); valid = false; }
+  if (!email || !email.includes('@') || !email.includes('.')) { emailEl.classList.add('error'); valid = false; }
+  if (!valid) return;
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  const payload = { tool: 'therapist-vs-planner', name, email, ...scoreData };
+  fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    .then(() => showSuccess(name)).catch(() => showSuccess(name));
+}
+function showSuccess(name) {
+  document.getElementById('success-msg').textContent = 'Thanks ' + name + ' — your report will arrive shortly from hello@shapingwealth.com.';
+  document.getElementById('gate-form').classList.add('hidden');
+  document.getElementById('gate-success').classList.remove('hidden');
+}
+render();
+</script>
+</body>
+</html>

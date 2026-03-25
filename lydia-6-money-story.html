@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Money Story Reflector — Lydia by Shaping Wealth</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #FAF8F5;
+  --ivory-2: #F2EFE9;
+  --ivory-3: #E8E3DB;
+  --slate: #1C2B3A;
+  --slate-2: #2E4058;
+  --slate-light: #5A7A96;
+  --gold: #C9A96E;
+  --gold-light: #E8D5B0;
+  --text: #1C2B3A;
+  --text-secondary: #5A7A96;
+  --text-tertiary: #96A8B5;
+  --border: rgba(28,43,58,0.1);
+  --border-hover: rgba(28,43,58,0.22);
+  --radius: 6px;
+  --radius-lg: 12px;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--ivory);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* Lydia wordmark */
+.lydia-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+}
+.lydia-mark .mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--slate);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lydia-mark .mark svg { width: 14px; height: 14px; }
+.lydia-mark .name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--slate);
+  letter-spacing: 0.02em;
+}
+.lydia-mark .by {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-left: 2px;
+}
+
+/* Tool header */
+.tool-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.tool-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--slate);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.tool-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Progress */
+.progress-wrap { margin: 2rem 0 2.5rem; }
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+.progress-bar { height: 1px; background: var(--ivory-3); }
+.progress-fill { height: 100%; background: var(--gold); transition: width 0.5s ease; }
+
+/* Questions */
+.q-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+}
+
+.q-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 1.5rem;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.options { display: flex; flex-direction: column; gap: 8px; }
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: white;
+  user-select: none;
+}
+.opt:hover { border-color: var(--gold-light); background: var(--ivory); }
+.opt.selected { border-color: var(--gold); background: var(--ivory); }
+.opt.selected .dot { background: var(--gold); border-color: var(--gold); }
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-hover);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s;
+}
+.opt-text { font-size: 14px; color: var(--text); line-height: 1.5; font-weight: 300; }
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.btn-ghost {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 10px 0;
+  transition: color 0.2s;
+  font-weight: 300;
+}
+.btn-ghost:hover { color: var(--text); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn:hover { border-color: var(--slate); background: var(--ivory-2); }
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: var(--slate); color: white; border-color: var(--slate); }
+.btn.primary:hover { background: var(--slate-2); }
+.btn.primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn.gold { background: var(--gold); color: white; border-color: var(--gold); }
+.btn.gold:hover { opacity: 0.9; }
+.btn.full { width: 100%; justify-content: center; }
+
+.divider {
+  height: 1px;
+  background: var(--ivory-3);
+  margin: 2rem 0;
+}
+
+/* Result hero */
+.result-hero { text-align: center; padding: 2.5rem 0 2rem; }
+
+.result-number {
+  font-family: var(--font-display);
+  font-size: 96px;
+  font-weight: 400;
+  color: var(--slate);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.result-of {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-top: 0.4rem;
+  font-weight: 300;
+}
+
+.result-tier {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+}
+
+/* Archetype result */
+.archetype-hero { text-align: center; padding: 2rem 0; }
+.archetype-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--ivory-2);
+  border: 1px solid var(--ivory-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-size: 28px;
+}
+.archetype-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.archetype-tagline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Pillar grid */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+.pillar-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.pillar-name {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.5rem;
+}
+.pillar-score {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--slate);
+}
+.pillar-bar { height: 2px; background: var(--ivory-3); border-radius: 2px; margin-top: 0.75rem; }
+.pillar-fill { height: 100%; border-radius: 2px; background: var(--gold); transition: width 0.8s ease; }
+
+/* Trait cards */
+.traits { display: flex; flex-direction: column; gap: 10px; margin: 1.5rem 0; }
+.trait-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.trait-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.trait-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+.trait-text strong { color: var(--text); font-weight: 500; }
+
+/* Section label */
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.75rem;
+}
+
+/* Gate block */
+.gate-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  background: white;
+}
+.gate-block h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.gate-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.gate-list {
+  background: var(--ivory);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gate-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 300;
+}
+.gate-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.field-row input {
+  height: 42px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  font-weight: 300;
+}
+.field-row input:focus { border-color: var(--gold); }
+.field-row input.error { border-color: #c0392b; }
+.field-note { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; font-weight: 300; }
+
+/* Success */
+.success-inner { text-align: center; padding: 1.5rem 0.5rem; }
+.check-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--gold);
+  font-size: 20px;
+}
+.success-inner h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.success-inner p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+/* Story / open result */
+.story-block {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 1.5rem 0;
+}
+.story-block p {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--slate);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* CTA block */
+.cta-block {
+  background: var(--slate);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+.cta-block p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.cta-block .cta-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 480px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .tool-title { font-size: 28px; }
+  .result-number { font-size: 72px; }
+  .archetype-name { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+<div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+<div class="page" id="quiz-section">
+  <div class="tool-tag">Your Money Story</div>
+  <h1 class="tool-title">Where does your relationship with money come from?</h1>
+  <p class="tool-sub">8 reflective questions to surface the beliefs and experiences that shape how you think and feel about money today.</p>
+  <div class="progress-wrap">
+    <div class="progress-meta"><span>Reflecting</span><span id="progress-counter">1 of 8</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="q-text" id="question-text"></div>
+  <div class="options" id="options-container"></div>
+  <div class="nav">
+    <button class="btn-ghost" id="btn-back" onclick="goBack()">← Back</button>
+    <button class="btn primary" id="btn-next" onclick="goNext()">Next →</button>
+  </div>
+</div>
+<div class="page hidden" id="result-section">
+  <div class="lydia-mark">
+  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+</div>
+  <div class="tool-tag">Your Money Story</div>
+  <h1 class="tool-title" id="res-title"></h1>
+  <div class="story-block" id="story-block"></div>
+  <div class="divider"></div>
+  <div class="section-label">Themes in your story</div>
+  <div class="traits" id="traits-container"></div>
+  <div class="divider"></div>
+  <div class="cta-block">
+    <div class="cta-title">Explore this with your advisor</div>
+    <p>Your money story shapes every financial decision you make. Sharing it with your advisor helps them support you in a way that actually fits who you are.</p>
+    <a href="https://shapingwealth.com" class="btn gold">Learn about Lydia →</a>
+  </div>
+</div>
+<script>
+const questions = [
+  {key:"childhood",text:"Growing up, money in your household was:",options:[
+    {text:"A source of stress or conflict",value:"scarce"},{text:"Rarely talked about — a taboo topic",value:"taboo"},
+    {text:"Present but not lavish — modest and careful",value:"modest"},{text:"Comfortable — enough for what we needed",value:"comfortable"},
+    {text:"Abundant — we had more than most",value:"abundant"}]},
+  {key:"lesson",text:"The most important lesson you were taught about money was:",options:[
+    {text:"Save it — you never know when things will go wrong",value:"save"},{text:"Do not waste it — money does not grow on trees",value:"careful"},
+    {text:"Work hard and it will come",value:"work"},{text:"Share it — money is meant to be given",value:"share"},
+    {text:"Money was never discussed as a lesson",value:"silence"}]},
+  {key:"emotion",text:"The emotion most associated with money in your childhood was:",options:[
+    {text:"Anxiety or fear",value:"fear"},{text:"Shame or embarrassment",value:"shame"},
+    {text:"Neutrality — it just was what it was",value:"neutral"},{text:"Security",value:"security"},
+    {text:"Excitement or aspiration",value:"aspiration"}]},
+  {key:"identity",text:"Today, when you think about money, you most identify with:",options:[
+    {text:"Someone who has to be careful",value:"careful"},{text:"Someone still figuring it out",value:"figuring"},
+    {text:"Someone building toward something",value:"building"},{text:"Someone who is comfortable and secure",value:"comfortable"},
+    {text:"Someone who wants more freedom",value:"freedom"}]},
+  {key:"belief",text:"Deep down, your most honest belief about money is:",options:[
+    {text:"There is never quite enough",value:"scarcity"},{text:"It is complicated and I do not fully understand it",value:"complex"},
+    {text:"It is a tool — neither good nor bad",value:"neutral"},{text:"It creates options and possibilities",value:"possibility"},
+    {text:"It can change who you are — and not always for the better",value:"corrupts"}]},
+  {key:"pattern",text:"The financial pattern you most recognise in yourself is:",options:[
+    {text:"Avoiding financial decisions until I have to make them",value:"avoidance"},{text:"Overspending when stressed or emotional",value:"emotional_spend"},
+    {text:"Being overly cautious even when it holds me back",value:"overcautious"},{text:"Putting others above my own financial needs",value:"self_last"},
+    {text:"I feel fairly balanced in how I approach money",value:"balanced"}]},
+  {key:"fear",text:"Your deepest financial fear is:",options:[
+    {text:"Running out of money",value:"running_out"},{text:"Not being able to provide for the people I love",value:"provide"},
+    {text:"Making a catastrophic mistake",value:"mistake"},{text:"Never having enough freedom",value:"no_freedom"},
+    {text:"I do not have a strong financial fear",value:"none"}]},
+  {key:"aspiration",text:"If your relationship with money were exactly as you would want it, it would feel like:",options:[
+    {text:"Complete security — no worry, ever",value:"security"},{text:"Effortless — money just works in the background",value:"effortless"},
+    {text:"Generous — I always have enough to give",value:"generous"},{text:"Free — money never limits what I can do",value:"free"},
+    {text:"Purposeful — every pound aligned with what I value",value:"purposeful"}]}
+];
+const storyTitles = {scarce:'A story of scarcity and resilience',taboo:'A story of silence and uncertainty',modest:'A story of careful stewardship',comfortable:'A story of quiet stability',abundant:'A story of abundance and expectation'};
+const childhoodText = {scarce:'Money was scarce growing up — and that shaped everything.',taboo:'Money was never spoken about. That silence created its own kind of uncertainty.',modest:'Money was treated carefully. There was enough, but nothing was taken for granted.',comfortable:'There was enough. You grew up with a foundation of stability.',abundant:'You grew up with more than most — and that comes with its own expectations.'};
+const emotionText = {fear:'The emotion most present was fear — and echoes of that can still surface in financial decisions today.',shame:'Shame was present around money. That kind of imprint runs deep.',neutral:'Money was relatively neutral emotionally — neither scary nor exciting.',security:'Money carried a sense of security and safety.',aspiration:'Money represented possibility and aspiration.'};
+const patternText = {avoidance:'Today, avoidance is a recognisable pattern — decisions get delayed, and discomfort builds.',emotional_spend:'Emotional spending is a coping pattern — money flows when stress is high.',overcautious:'Caution can hold you back even when the risk is worth taking.',self_last:'Others come first, financially. Your own security can get deprioritised.',balanced:'You have a relatively balanced relationship with financial decisions.'};
+const aspirationText = {security:'What you want most is to never worry again.',effortless:'You want money to just work — quietly, in the background.',generous:'You want to be generous without limits.',free:'You want money to never be a constraint on how you live.',purposeful:'You want every financial decision to feel meaningful.'};
+let current = 0, answers = new Array(questions.length).fill(null);
+function render() {
+  document.getElementById('question-text').textContent = (current+1) + '. ' + questions[current].text;
+  document.getElementById('progress-counter').textContent = (current+1) + ' of ' + questions.length;
+  document.getElementById('progress-fill').style.width = Math.round((current/questions.length)*100) + '%';
+  document.getElementById('btn-back').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current===questions.length-1 ? 'Reveal my story →' : 'Next →';
+  document.getElementById('options-container').innerHTML = questions[current].options.map(function(o,i) {
+    return '<div class="opt' + (answers[current]===i?' selected':'') + '" onclick="selectAnswer('+i+')"><div class="dot"></div><div class="opt-text">' + o.text + '</div></div>';
+  }).join('');
+}
+function selectAnswer(i) { answers[current]=i; render(); }
+function goBack() { if(current>0) { current--; render(); } }
+function goNext() {
+  if(answers[current]===null) return;
+  if(current===questions.length-1) { buildResults(); return; }
+  current++; render();
+}
+function getVal(key) {
+  var q = questions.find(function(q){return q.key===key;});
+  var idx = questions.indexOf(q);
+  return answers[idx]!==null ? q.options[answers[idx]].value : null;
+}
+function buildResults() {
+  var childhood=getVal('childhood'),emotion=getVal('emotion'),pattern=getVal('pattern'),aspiration=getVal('aspiration');
+  document.getElementById('res-title').textContent = storyTitles[childhood] || 'Your money story';
+  var paragraphs = [childhoodText[childhood],emotionText[emotion],patternText[pattern],aspirationText[aspiration]].filter(Boolean);
+  document.getElementById('story-block').innerHTML = paragraphs.map(function(p){return '<p style="margin-bottom:1rem">'+p+'</p>';}).join('');
+  var traits = [];
+  if(childhood==='scarce'||childhood==='taboo') traits.push('Early experiences of scarcity or silence around money often create a persistent background anxiety — even when circumstances have changed.');
+  if(emotion==='fear'||emotion==='shame') traits.push('When money carries shame or fear from childhood, financial decisions become emotionally loaded in ways that can be hard to explain.');
+  if(pattern!=='balanced') traits.push('Being aware of your pattern is the first step. Most patterns served a purpose once — the question is whether they still serve you now.');
+  traits.push(aspirationText[aspiration] + ' That aspiration is your compass — it tells you what financial wellbeing really means to you.');
+  document.getElementById('traits-container').innerHTML = traits.map(function(t){return '<div class="trait-card"><div class="trait-dot"></div><div class="trait-text">'+t+'</div></div>';}).join('');
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('quiz-section').classList.add('hidden');
+  document.getElementById('result-section').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+render();
+</script>
+</body>
+</html>
