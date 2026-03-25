@@ -5,515 +5,563 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Money Personality — Lydia by Shaping Wealth</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ivory: #FAF8F5;
-  --ivory-2: #F2EFE9;
-  --ivory-3: #E8E3DB;
-  --slate: #1C2B3A;
-  --slate-2: #2E4058;
-  --slate-light: #5A7A96;
-  --gold: #C9A96E;
-  --gold-light: #E8D5B0;
-  --text: #1C2B3A;
-  --text-secondary: #5A7A96;
-  --text-tertiary: #96A8B5;
-  --border: rgba(28,43,58,0.1);
-  --border-hover: rgba(28,43,58,0.22);
-  --radius: 6px;
-  --radius-lg: 12px;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', sans-serif;
+  --blue: #3B4FC8;
+  --purple: #B060C8;
+  --gradient: linear-gradient(135deg, #3B4FC8 0%, #7B52C8 50%, #C060C8 100%);
+  --white: #ffffff;
+  --white-90: rgba(255,255,255,0.9);
+  --white-70: rgba(255,255,255,0.7);
+  --white-50: rgba(255,255,255,0.5);
+  --white-20: rgba(255,255,255,0.2);
+  --white-12: rgba(255,255,255,0.12);
+  --white-08: rgba(255,255,255,0.08);
+  --font: 'Montserrat', sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 100px;
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--ivory);
-  color: var(--text);
+  font-family: var(--font);
+  background: var(--gradient);
   min-height: 100vh;
+  color: var(--white);
   -webkit-font-smoothing: antialiased;
 }
 
 .page {
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: 3rem 1.5rem 6rem;
+  padding: 2.5rem 1.5rem 6rem;
 }
 
 /* Lydia wordmark */
 .lydia-mark {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 2.5rem;
 }
 .lydia-mark .mark {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--slate);
+  background: var(--white-20);
+  border: 1.5px solid var(--white-50);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.lydia-mark .mark svg { width: 14px; height: 14px; }
 .lydia-mark .name {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--slate);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
   letter-spacing: 0.02em;
-}
-.lydia-mark .by {
-  font-size: 11px;
-  color: var(--text-tertiary);
-  margin-left: 2px;
 }
 
 /* Tool header */
 .tool-tag {
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.6rem;
+  color: var(--white-70);
+  margin-bottom: 0.75rem;
+  text-align: center;
 }
 
 .tool-title {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 500;
-  color: var(--slate);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--white);
   line-height: 1.2;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
 }
 
 .tool-sub {
   font-size: 15px;
-  color: var(--text-secondary);
+  color: var(--white-70);
   line-height: 1.7;
-  font-weight: 300;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 /* Progress */
-.progress-wrap { margin: 2rem 0 2.5rem; }
+.progress-wrap { margin: 2rem 0 2rem; }
 .progress-meta {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: var(--text-tertiary);
-  margin-bottom: 8px;
-  font-weight: 300;
-}
-.progress-bar { height: 1px; background: var(--ivory-3); }
-.progress-fill { height: 100%; background: var(--gold); transition: width 0.5s ease; }
-
-/* Questions */
-.q-label {
-  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 0.75rem;
+  color: var(--white-70);
+  margin-bottom: 10px;
+}
+.progress-bar {
+  height: 4px;
+  background: var(--white-20);
+  border-radius: 4px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--white);
+  border-radius: 4px;
+  transition: width 0.5s ease;
 }
 
+/* Question */
 .q-text {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 500;
-  color: var(--slate);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
   margin-bottom: 1.5rem;
-  line-height: 1.45;
-  font-style: italic;
+  line-height: 1.4;
+  text-align: center;
 }
 
-.options { display: flex; flex-direction: column; gap: 8px; }
+.options { display: flex; flex-direction: column; gap: 10px; }
 
 .opt {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
-  padding: 14px 18px;
-  border: 1px solid var(--border);
+  padding: 16px 20px;
+  background: var(--white-12);
+  border: 1.5px solid var(--white-20);
   border-radius: var(--radius);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  background: white;
+  transition: all 0.2s;
   user-select: none;
+  backdrop-filter: blur(4px);
 }
-.opt:hover { border-color: var(--gold-light); background: var(--ivory); }
-.opt.selected { border-color: var(--gold); background: var(--ivory); }
-.opt.selected .dot { background: var(--gold); border-color: var(--gold); }
+.opt:hover { background: var(--white-20); border-color: var(--white-50); }
+.opt.selected { background: var(--white-20); border-color: var(--white); }
+.opt.selected .dot { background: var(--white); border-color: var(--white); }
 
 .dot {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 1.5px solid var(--border-hover);
+  border: 2px solid var(--white-50);
   flex-shrink: 0;
-  margin-top: 2px;
   transition: all 0.2s;
 }
-.opt-text { font-size: 14px; color: var(--text); line-height: 1.5; font-weight: 300; }
+.opt-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.5;
+}
 
 /* Navigation */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .btn-ghost {
   background: none;
   border: none;
-  font-family: var(--font-body);
+  font-family: var(--font);
   font-size: 14px;
-  color: var(--text-tertiary);
+  font-weight: 500;
+  color: var(--white-70);
   cursor: pointer;
   padding: 10px 0;
   transition: color 0.2s;
-  font-weight: 300;
 }
-.btn-ghost:hover { color: var(--text); }
+.btn-ghost:hover { color: var(--white); }
 
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 24px;
-  font-family: var(--font-body);
+  padding: 12px 28px;
+  font-family: var(--font);
   font-size: 14px;
-  font-weight: 400;
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--text);
+  font-weight: 600;
+  border: 1.5px solid var(--white-50);
+  border-radius: var(--radius-pill);
+  background: var(--white-12);
+  color: var(--white);
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
+  letter-spacing: 0.02em;
 }
-.btn:hover { border-color: var(--slate); background: var(--ivory-2); }
+.btn:hover { background: var(--white-20); border-color: var(--white); }
 .btn:active { transform: scale(0.98); }
-.btn.primary { background: var(--slate); color: white; border-color: var(--slate); }
-.btn.primary:hover { background: var(--slate-2); }
+.btn.primary { background: var(--white); color: var(--blue); border-color: var(--white); font-weight: 700; }
+.btn.primary:hover { opacity: 0.92; }
 .btn.primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-.btn.gold { background: var(--gold); color: white; border-color: var(--gold); }
-.btn.gold:hover { opacity: 0.9; }
 .btn.full { width: 100%; justify-content: center; }
 
 .divider {
   height: 1px;
-  background: var(--ivory-3);
+  background: var(--white-20);
   margin: 2rem 0;
 }
 
 /* Result hero */
-.result-hero { text-align: center; padding: 2.5rem 0 2rem; }
+.result-hero { text-align: center; padding: 2rem 0 1.5rem; }
 
 .result-number {
-  font-family: var(--font-display);
   font-size: 96px;
-  font-weight: 400;
-  color: var(--slate);
+  font-weight: 700;
+  color: var(--white);
   line-height: 1;
-  letter-spacing: -2px;
+  letter-spacing: -3px;
 }
 
 .result-of {
   font-size: 13px;
-  color: var(--text-tertiary);
+  font-weight: 500;
+  color: var(--white-70);
   margin-top: 0.4rem;
-  font-weight: 300;
 }
 
 .result-tier {
   display: inline-block;
   margin-top: 1rem;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 5px 18px;
-  border-radius: 100px;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  background: transparent;
+  padding: 6px 20px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--white-50);
+  color: var(--white);
+  background: var(--white-12);
 }
 
-/* Archetype result */
-.archetype-hero { text-align: center; padding: 2rem 0; }
+/* Archetype hero */
+.archetype-hero { text-align: center; padding: 1.5rem 0; }
 .archetype-icon {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: var(--ivory-2);
-  border: 1px solid var(--ivory-3);
+  background: var(--white-12);
+  border: 1.5px solid var(--white-20);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.25rem;
-  font-size: 28px;
+  font-size: 32px;
 }
 .archetype-name {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 500;
-  color: var(--slate);
-  margin-bottom: 0.4rem;
-  font-style: italic;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
 }
 .archetype-tagline {
   font-size: 15px;
-  color: var(--text-secondary);
-  font-weight: 300;
-  line-height: 1.6;
+  color: var(--white-70);
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 /* Pillar grid */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white-70);
+  margin-bottom: 0.75rem;
+}
+
 .pillar-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 10px;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 .pillar-card {
-  background: white;
-  border: 1px solid var(--border);
+  background: var(--white-12);
+  border: 1px solid var(--white-20);
   border-radius: var(--radius);
   padding: 1rem;
+  backdrop-filter: blur(4px);
 }
 .pillar-name {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--white-70);
   margin-bottom: 0.5rem;
 }
 .pillar-score {
-  font-family: var(--font-display);
   font-size: 28px;
-  font-weight: 400;
-  color: var(--slate);
+  font-weight: 700;
+  color: var(--white);
 }
-.pillar-bar { height: 2px; background: var(--ivory-3); border-radius: 2px; margin-top: 0.75rem; }
-.pillar-fill { height: 100%; border-radius: 2px; background: var(--gold); transition: width 0.8s ease; }
+.pillar-bar { height: 3px; background: var(--white-20); border-radius: 3px; margin-top: 0.75rem; }
+.pillar-fill { height: 100%; border-radius: 3px; background: var(--white); transition: width 0.8s ease; }
 
 /* Trait cards */
-.traits { display: flex; flex-direction: column; gap: 10px; margin: 1.5rem 0; }
+.traits { display: flex; flex-direction: column; gap: 10px; margin: 1rem 0; }
 .trait-card {
-  background: white;
-  border: 1px solid var(--border);
+  background: var(--white-12);
+  border: 1px solid var(--white-20);
   border-radius: var(--radius);
   padding: 1rem 1.25rem;
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  backdrop-filter: blur(4px);
 }
 .trait-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--white);
   flex-shrink: 0;
-  margin-top: 6px;
+  margin-top: 5px;
+  opacity: 0.7;
 }
-.trait-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
-.trait-text strong { color: var(--text); font-weight: 500; }
-
-/* Section label */
-.section-label {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 0.75rem;
+.trait-text {
+  font-size: 14px;
+  color: var(--white-90);
+  line-height: 1.6;
+  font-weight: 400;
 }
+.trait-text strong { color: var(--white); font-weight: 600; }
 
 /* Gate block */
 .gate-block {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  background: var(--white-12);
+  border: 1.5px solid var(--white-20);
+  border-radius: var(--radius);
   padding: 1.75rem;
-  background: white;
+  backdrop-filter: blur(4px);
 }
 .gate-block h3 {
-  font-family: var(--font-display);
   font-size: 22px;
-  font-weight: 500;
-  color: var(--slate);
-  margin-bottom: 0.4rem;
-  font-style: italic;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
 }
 .gate-sub {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: var(--white-70);
   line-height: 1.65;
   margin-bottom: 1.25rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 .gate-list {
-  background: var(--ivory);
-  border-radius: var(--radius);
+  background: var(--white-08);
+  border-radius: var(--radius-sm);
   padding: 1rem 1.25rem;
   margin-bottom: 1.25rem;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
 }
 .gate-list li {
   font-size: 13px;
-  color: var(--text-secondary);
+  font-weight: 500;
+  color: var(--white-90);
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 300;
 }
 .gate-list li::before {
   content: '';
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--white-70);
   flex-shrink: 0;
 }
 .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .field-row input {
-  height: 42px;
+  height: 44px;
   padding: 0 14px;
   font-size: 14px;
-  font-family: var(--font-body);
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius);
-  background: var(--ivory);
-  color: var(--text);
+  font-family: var(--font);
+  font-weight: 500;
+  border: 1.5px solid var(--white-30, rgba(255,255,255,0.3));
+  border-radius: var(--radius-sm);
+  background: var(--white-12);
+  color: var(--white);
   outline: none;
   transition: border-color 0.2s;
   width: 100%;
-  font-weight: 300;
 }
-.field-row input:focus { border-color: var(--gold); }
-.field-row input.error { border-color: #c0392b; }
-.field-note { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; font-weight: 300; }
+.field-row input::placeholder { color: var(--white-50); }
+.field-row input:focus { border-color: var(--white); }
+.field-row input.error { border-color: #ff6b6b; }
+.field-note {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--white-50);
+  margin-top: 10px;
+  text-align: center;
+}
 
 /* Success */
 .success-inner { text-align: center; padding: 1.5rem 0.5rem; }
 .check-ring {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  border: 1px solid var(--gold);
+  border: 2px solid var(--white-50);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
-  color: var(--gold);
-  font-size: 20px;
+  font-size: 22px;
+  color: var(--white);
 }
 .success-inner h3 {
-  font-family: var(--font-display);
   font-size: 22px;
-  font-weight: 500;
-  color: var(--slate);
-  margin-bottom: 0.4rem;
-  font-style: italic;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
 }
 .success-inner p {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: var(--white-70);
   line-height: 1.65;
   margin-bottom: 1.5rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
-/* Story / open result */
+/* Story block */
 .story-block {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  background: var(--white-12);
+  border: 1px solid var(--white-20);
+  border-radius: var(--radius);
   padding: 2rem;
   margin: 1.5rem 0;
+  backdrop-filter: blur(4px);
 }
 .story-block p {
-  font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
-  color: var(--slate);
-  line-height: 1.7;
-  font-style: italic;
+  color: var(--white-90);
+  line-height: 1.8;
 }
 
 /* CTA block */
 .cta-block {
-  background: var(--slate);
-  border-radius: var(--radius-lg);
+  background: var(--white-12);
+  border: 1.5px solid var(--white-20);
+  border-radius: var(--radius);
   padding: 1.75rem;
   margin-top: 2rem;
   text-align: center;
+  backdrop-filter: blur(4px);
+}
+.cta-block .cta-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
 }
 .cta-block p {
   font-size: 14px;
-  color: rgba(255,255,255,0.7);
+  color: var(--white-70);
   line-height: 1.6;
   margin-bottom: 1.25rem;
-  font-weight: 300;
+  font-weight: 400;
 }
-.cta-block .cta-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  color: white;
-  margin-bottom: 0.5rem;
-  font-style: italic;
+
+/* Setup inputs (values alignment) */
+.setup-card {
+  background: var(--white-12);
+  border: 1px solid var(--white-20);
+  border-radius: var(--radius);
+  padding: 1.25rem;
 }
+.setup-card .setup-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white-70);
+  margin-bottom: 0.6rem;
+}
+.setup-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: var(--font);
+  font-weight: 500;
+  border: 1.5px solid var(--white-20);
+  border-radius: var(--radius-sm);
+  background: var(--white-08);
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.setup-input::placeholder { color: var(--white-50); }
+.setup-input:focus { border-color: var(--white-70); }
 
 .hidden { display: none !important; }
 
 @media (max-width: 480px) {
   .pillar-grid { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; }
-  .tool-title { font-size: 28px; }
+  .tool-title { font-size: 24px; }
   .result-number { font-size: 72px; }
-  .archetype-name { font-size: 26px; }
+  .archetype-name { font-size: 22px; }
+  .q-text { font-size: 17px; }
 }
 </style>
 </head>
 <body>
-<div class="lydia-mark">
-  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
-</div>
 <div class="page" id="quiz-section">
-  <div class="tool-tag">Money Psychology</div>
-  <h1 class="tool-title">What is your money personality?</h1>
-  <p class="tool-sub">10 questions to understand how you think, feel, and make decisions about money — and why.</p>
-  <div class="progress-wrap">
-    <div class="progress-meta"><span>Your money psychology</span><span id="progress-counter">1 of 10</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+<div class="lydia-mark">
+  <div class="mark">
+    <svg viewBox="0 0 20 20" fill="none" width="18" height="18">
+      <circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+      <path d="M7 10C7 10 8.5 13 10 13C11.5 13 13 10 13 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
   </div>
-  <div class="q-text" id="question-text"></div>
-  <div class="options" id="options-container"></div>
-  <div class="nav">
-    <button class="btn-ghost" id="btn-back" onclick="goBack()">← Back</button>
-    <button class="btn primary" id="btn-next" onclick="goNext()">Next →</button>
-  </div>
+  <span class="name">Lydia</span>
+</div>
+<div class="tool-tag">Money Psychology</div>
+<h1 class="tool-title">What is your money personality?</h1>
+<p class="tool-sub">10 questions to understand how you think, feel, and make decisions about money — and why.</p>
+<div class="progress-wrap">
+  <div class="progress-meta"><span>Questions</span><span id="progress-counter">1 of ?</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
+<div class="q-text" id="question-text"></div>
+<div class="options" id="options-container"></div>
+<div class="nav">
+  <button class="btn-ghost" id="btn-back" onclick="goBack()">← Back</button>
+  <button class="btn primary" id="btn-next" onclick="goNext()">Next →</button>
+</div>
 </div>
 <div class="page hidden" id="result-section">
   <div class="lydia-mark">
-  <div class="mark"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7C5 7 6 9 7 9C8 9 9 7 9 7" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-  <span class="name">Lydia</span><span class="by">by Shaping Wealth</span>
+  <div class="mark">
+    <svg viewBox="0 0 20 20" fill="none" width="18" height="18">
+      <circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+      <path d="M7 10C7 10 8.5 13 10 13C11.5 13 13 10 13 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <span class="name">Lydia</span>
 </div>
   <div class="tool-tag">Your Money Personality</div>
   <div class="archetype-hero">
@@ -527,7 +575,7 @@ body {
   <div class="divider"></div>
   <div id="gate-form" class="gate-block">
     <h3>Get your full report</h3>
-    <p class="gate-sub">Enter your email and we'll send you a detailed personalised breakdown.</p>
+    <p class="gate-sub">Enter your email and we will send you a detailed personalised breakdown.</p>
     <ul class="gate-list" id="gate-list-items"></ul>
     <div class="field-row">
       <input type="text" id="inp-name" placeholder="First name" autocomplete="given-name"/>
@@ -540,7 +588,7 @@ body {
     <div class="success-inner">
       <div class="check-ring">✓</div>
       <h3>On its way</h3>
-      <p id="success-msg">Your report is being prepared and will arrive shortly from hello@shapingwealth.com.</p>
+      <p id="success-msg">Your report will arrive shortly from hello@shapingwealth.com.</p>
       <a href="https://shapingwealth.com" class="btn">Learn about Lydia →</a>
     </div>
   </div>
@@ -571,7 +619,7 @@ const questions = [
     {text:"I gather information until I feel safe enough to decide",value:"guardian"},{text:"I assess it against my goals and make a call",value:"builder"},
     {text:"I consider how it affects everyone involved",value:"giver"},{text:"I go with what keeps my options open",value:"freedom"},
     {text:"I delay — decisions feel overwhelming",value:"avoider"}]},
-  {text:"You receive an unexpected windfall of money. What do you do?",options:[
+  {text:"You receive an unexpected windfall. What do you do?",options:[
     {text:"Top up my emergency fund and save the rest",value:"guardian"},{text:"Invest it toward something I have been building toward",value:"builder"},
     {text:"Give a meaningful portion to causes I care about",value:"giver"},{text:"Fund an experience I have been putting off",value:"freedom"},
     {text:"Leave it in my account until I figure out what to do",value:"avoider"}]},
@@ -589,28 +637,30 @@ const questions = [
     {text:"Honestly, I have not thought about it much",value:"avoider"}]}
 ];
 const personalities = {
-  guardian: {icon:'🛡️',name:'The Guardian',tagline:'Security is your primary drive. You find comfort in stability, struggle with uncertainty, and often sacrifice potential gains for the reassurance of knowing things are safe.',traits:['Security and predictability guide most of your financial decisions','Uncertainty — even temporary — can cause significant anxiety','You may hold back from decisions that could genuinely benefit you']},
-  builder: {icon:'🔨',name:'The Builder',tagline:'You are driven, goal-oriented, and energised by progress. Money is a tool for creating the life and legacy you envision.',traits:['Ambitious goals motivate your financial decisions','You are comfortable with calculated risk when the upside is clear','Inaction frustrates you more than making a mistake']},
-  giver: {icon:'🤲',name:'The Giver',tagline:'Generosity defines your relationship with money. You find meaning in using resources to care for others — sometimes to the point of neglecting your own financial wellbeing.',traits:['You feel most aligned when money serves others','Financial planning that feels selfish can be uncomfortable','Setting limits around giving is often harder than the giving itself']},
-  freedom: {icon:'🌍',name:'The Freedom Seeker',tagline:"Money means options. You do not care about accumulation — you care about what money makes possible. Flexibility and autonomy are non-negotiable.",traits:['Financial decisions are filtered through the lens of freedom','Long-term commitments and rigid structures feel constraining','You may under-plan because the future feels too far away']},
-  avoider: {icon:'🌫️',name:'The Avoider',tagline:"Money decisions feel heavy or anxiety-inducing. You prefer not to think about it — which means important decisions often get delayed.",traits:['Avoidance is a coping mechanism, not a character flaw','Complexity and overwhelm often precede inaction','With the right support, decision-making becomes much more manageable']}
+  guardian:{icon:"🛡️",name:"The Guardian",tagline:"Security is your primary drive. You find comfort in stability, struggle with uncertainty, and often sacrifice potential gains for the reassurance of knowing things are safe.",traits:["Security and predictability guide most of your financial decisions","Uncertainty — even temporary — can cause significant anxiety","You may hold back from decisions that could genuinely benefit you"]},
+  builder:{icon:"🔨",name:"The Builder",tagline:"You are driven, goal-oriented, and energised by progress. Money is a tool for creating the life and legacy you envision.",traits:["Ambitious goals motivate your financial decisions","You are comfortable with calculated risk when the upside is clear","Inaction frustrates you more than making a mistake"]},
+  giver:{icon:"🤲",name:"The Giver",tagline:"Generosity defines your relationship with money. You find meaning in using resources to care for others — sometimes to the point of neglecting your own financial wellbeing.",traits:["You feel most aligned when money serves others","Financial planning that feels selfish can be uncomfortable","Setting limits around giving is often harder than the giving itself"]},
+  freedom:{icon:"🌍",name:"The Freedom Seeker",tagline:"Money means options. You do not care about accumulation — you care about what money makes possible. Flexibility and autonomy are non-negotiable.",traits:["Financial decisions are filtered through the lens of freedom","Long-term commitments and rigid structures feel constraining","You may under-plan because the future feels too far away"]},
+  avoider:{icon:"🌫️",name:"The Avoider",tagline:"Money decisions feel heavy or anxiety-inducing. You prefer not to think about it — which means important decisions often get delayed.",traits:["Avoidance is a coping mechanism, not a character flaw","Complexity and overwhelm often precede inaction","With the right support, decision-making becomes much more manageable"]}
 };
 let current = 0, answers = new Array(questions.length).fill(null), scoreData = {};
 function render() {
-  document.getElementById('question-text').textContent = (current+1) + '. ' + questions[current].text;
-  document.getElementById('progress-counter').textContent = (current+1) + ' of ' + questions.length;
-  document.getElementById('progress-fill').style.width = Math.round((current/questions.length)*100) + '%';
-  document.getElementById('btn-back').style.visibility = current===0 ? 'hidden' : 'visible';
-  document.getElementById('btn-next').textContent = current===questions.length-1 ? 'See my personality →' : 'Next →';
-  document.getElementById('options-container').innerHTML = questions[current].options.map(function(o,i) {
-    return '<div class="opt' + (answers[current]===i?' selected':'') + '" onclick="selectAnswer('+i+')"><div class="dot"></div><div class="opt-text">' + o.text + '</div></div>';
+  var q = questions[current];
+  
+  document.getElementById('question-text').textContent = (current + 1) + '. ' + q.text;
+  document.getElementById('progress-counter').textContent = (current + 1) + ' of ' + questions.length;
+  document.getElementById('progress-fill').style.width = Math.round((current / questions.length) * 100) + '%';
+  document.getElementById('btn-back').style.visibility = current === 0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current === questions.length - 1 ? 'See my result →' : 'Next →';
+  document.getElementById('options-container').innerHTML = q.options.map(function(o, i) {
+    return '<div class="opt' + (answers[current] === i ? ' selected' : '') + '" onclick="selectAnswer(' + i + ')"><div class="dot"></div><div class="opt-text">' + o.text + '</div></div>';
   }).join('');
 }
-function selectAnswer(i) { answers[current]=i; render(); }
-function goBack() { if(current>0) { current--; render(); } }
+function selectAnswer(i) { answers[current] = i; render(); }
+function goBack() { if (current > 0) { current--; render(); } }
 function goNext() {
-  if(answers[current]===null) return;
-  if(current===questions.length-1) { buildResults(); return; }
+  if (answers[current] === null) return;
+  if (current === questions.length - 1) { buildResults(); return; }
   current++; render();
 }
 function buildResults() {
@@ -618,33 +668,33 @@ function buildResults() {
   answers.forEach(function(a,i) { if(a!==null) counts[questions[i].options[a].value]++; });
   var top = Object.keys(counts).reduce(function(a,b) { return counts[a]>counts[b]?a:b; });
   var p = personalities[top];
-  scoreData = {personality:top,personality_name:p.name,counts:counts,answers:answers.map(function(a,i){return{q:questions[i].text,a:a!==null?questions[i].options[a].text:''};})};
-  document.getElementById('arch-icon').textContent = p.icon;
-  document.getElementById('arch-name').textContent = p.name;
-  document.getElementById('arch-tagline').textContent = p.tagline;
-  document.getElementById('traits-container').innerHTML = p.traits.map(function(t) { return '<div class="trait-card"><div class="trait-dot"></div><div class="trait-text">'+t+'</div></div>'; }).join('');
-  document.getElementById('gate-list-items').innerHTML = ['Your full money personality profile','How your type typically responds to financial advice','The triggers and blocks most common for your personality','How to use this insight in your next advisor meeting'].map(function(t){return '<li>'+t+'</li>';}).join('');
-  document.getElementById('progress-fill').style.width = '100%';
-  document.getElementById('quiz-section').classList.add('hidden');
-  document.getElementById('result-section').classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'smooth'});
+  scoreData = {personality:top,personality_name:p.name,counts:counts,answers:answers.map(function(a,i){return{q:questions[i].text,a:a!==null?questions[i].options[a].text:""};})};
+  document.getElementById("arch-icon").textContent = p.icon;
+  document.getElementById("arch-name").textContent = p.name;
+  document.getElementById("arch-tagline").textContent = p.tagline;
+  document.getElementById("traits-container").innerHTML = p.traits.map(function(t){return '<div class="trait-card"><div class="trait-dot"></div><div class="trait-text">'+t+"</div></div>";}).join("");
+  document.getElementById("gate-list-items").innerHTML = ["Your full money personality profile","How your type typically responds to financial advice","The triggers and blocks most common for your personality","How to use this insight in your next advisor meeting"].map(function(t){return "<li>"+t+"</li>";}).join("");
+  document.getElementById("progress-fill").style.width = "100%";
+  document.getElementById("quiz-section").classList.add("hidden");
+  document.getElementById("result-section").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 const WEBHOOK_URL = 'https://YOUR_N8N_WEBHOOK_URL';
 function submitLead() {
-  const nameEl = document.getElementById('inp-name');
-  const emailEl = document.getElementById('inp-email');
-  const name = nameEl.value.trim();
-  const email = emailEl.value.trim();
-  let valid = true;
+  var nameEl = document.getElementById('inp-name');
+  var emailEl = document.getElementById('inp-email');
+  var name = nameEl.value.trim();
+  var email = emailEl.value.trim();
+  var valid = true;
   nameEl.classList.remove('error'); emailEl.classList.remove('error');
   if (!name) { nameEl.classList.add('error'); valid = false; }
   if (!email || !email.includes('@') || !email.includes('.')) { emailEl.classList.add('error'); valid = false; }
   if (!valid) return;
-  const btn = document.getElementById('btn-submit');
+  var btn = document.getElementById('btn-submit');
   btn.disabled = true; btn.textContent = 'Sending...';
-  const payload = { tool: 'money-personality', name, email, ...scoreData };
+  var payload = Object.assign({ tool: 'money-personality', name: name, email: email }, scoreData);
   fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-    .then(() => showSuccess(name)).catch(() => showSuccess(name));
+    .then(function() { showSuccess(name); }).catch(function() { showSuccess(name); });
 }
 function showSuccess(name) {
   document.getElementById('success-msg').textContent = 'Thanks ' + name + ' — your report will arrive shortly from hello@shapingwealth.com.';
